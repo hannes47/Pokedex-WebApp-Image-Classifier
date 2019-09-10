@@ -30,33 +30,14 @@ data = ImageDataBunch.single_from_classes(MODEL_PATH, classes, ds_tfms=get_trans
                                           size = 128).normalize(imagenet_stats)
 learn = cnn_learner(data, models.resnet101).load(os.path.join(os.getcwd(),'models','Pokemon_Resnet101_stage-3'))
 
-# Load your trained model
-#model = load_model(MODEL_PATH)
-#model._make_predict_function()          # Necessary
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 
 def model_predict(img_path, learn):
-    #img = image.load_img(img_path, target_size=(224, 224))
+
     pred_class,_,losses = learn.predict(open_image(img_path))
 
-#    # Preprocessing the image
-#    x = image.img_to_array(img)
-#    # x = np.true_divide(x, 255)
-#    x = np.expand_dims(x, axis=0)
-
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
-#    x = preprocess_input(x, mode='caffe')
-
-#    preds = model.predict(x)
     return pred_class
-#    return Flask.jsonify({
-#            "predictions": sorted(
-#                    zip(learn.data.classes, map(float,losses)),
-#                    key=lambda p: p[1],
-#                    reverse=True)})
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -78,10 +59,6 @@ def upload():
         f.save(file_path)
         # Make prediction
         preds = model_predict(file_path, learn)
-
-        # Process your result for human
-        # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        # pred_class = preds[0]
         result = str(preds)               # Convert to string
         return result
     return None
