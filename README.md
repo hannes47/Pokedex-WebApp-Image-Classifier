@@ -11,3 +11,7 @@ On the drive you can also retrain the model by running Pokemon.ipynb. The data i
 
 See this repository for the flask template I used:
 https://github.com/mtobeiyf/keras-flask-deploy-webapp
+
+This is the source of the Pokémon Dataset: https://www.kaggle.com/mrgravelord/complete-pokemon-image-dataset
+
+This is the NB on which the fastai implementation of the training is based on: https://www.kaggle.com/thesighsrikar/93-accuracy-using-fastai
